@@ -340,7 +340,10 @@ class Project64App:
     def _toggle_menus(self, enabled):
         state = tk.NORMAL if enabled else tk.DISABLED
         for menu in (self.file_menu, self.system_menu):
-            for i in range(menu.index("end") + 1):
+            end_idx = menu.index("end")
+            if end_idx is None:
+                continue
+            for i in range(end_idx + 1):
                 try:
                     lbl = menu.entrycget(i, "label")
                     if lbl in {"End Emulation", "Rom Info", "Reset", "Pause", "Generate Bitmap",
